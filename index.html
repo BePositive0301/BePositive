@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>末世互助网</title>
+<style>
+  body {
+    font-family: "Microsoft YaHei", sans-serif;
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background-color: #111;
+    padding: 15px 30px;
+    border-bottom: 2px solid #333;
+  }
+  header h1 {
+    font-size: 22px;
+    color: #c0392b;
+    letter-spacing: 2px;
+  }
+  nav {
+    background-color: #181818;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #333;
+  }
+  nav a {
+    color: #aaa;
+    padding: 10px;
+    text-decoration: none;
+  }
+  nav a:hover {
+    color: #fff;
+  }
+  main {
+    padding: 25px;
+    min-height: 500px;
+  }
+  section {
+    display: none;
+  }
+  section.active {
+    display: block;
+  }
+  .post {
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
+  }
+  footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px solid #333;
+  }
+  button {
+    background-color: #c0392b;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #e74c3c;
+  }
+  .highlight-red { color: #b71c1c; }
+  .highlight-blue { color: #1976d2; }
+  .highlight-green { color: #2e7d32; }
+  .highlight-black { color: #111; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>末世互助网</h1>
+</header>
+
+<nav>
+  <a href="#" onclick="showPage('home')">主页</a>
+  <a href="#" onclick="showPage('forum')">论坛</a>
+  <a href="#" onclick="showPage('help')">互助</a>
+  <a href="#" onclick="showPage('monsters')">怪物</a>
+  <a href="#" onclick="showPage('action')">行动</a>
+  <a href="#" onclick="showPage('profile')">个人资料</a>
+</nav>
+
+<main>
+
+  <!-- 首页 -->
+  <section id="home" class="active">
+    <h2>欢迎来到【末世互助网】</h2>
+    <p>这是末世后人类搭建的最后一片网络庇护地。<br>你可以在这里发布求助、交易、记录生存。</p>
+    <p><i>——“我们还活着。”</i></p>
+  </section>
+
+  <!-- 论坛 -->
+  <section id="forum">
+    <h2>末世论坛</h2>
+    <div class="post">
+      <p><b>[幸存者A]</b>：有人知道A城东区的避难所还安全吗？</p>
+      <p class="highlight-blue">回复（2）</p>
+    </div>
+    <div class="post">
+      <p><b>[幸存者B]</b>：今天在B镇南仓库找到几个罐头，交换药品。</p>
+      <p class="highlight-green">回复（5）</p>
+    </div>
+  </section>
+
+  <!-- 互助 -->
+  <section id="help">
+    <h2>互助区</h2>
+    <form>
+      <p>我需要：
+        <select>
+          <option>压缩饼干</option>
+          <option>矿泉水</option>
+          <option>急救箱</option>
+          <option class="highlight-red">救命</option>
+        </select>
+      </p>
+      <p>我有：
+        <select>
+          <option>无</option>
+          <option>罐头</option>
+          <option>药品</option>
+          <option>燃料</option>
+        </select>
+      </p>
+      <p>我在：
+        <select>
+          <option>A城</option>
+          <option>B镇</option>
+          <option>C市主城区</option>
+        </select>
+      </p>
+      <p>请好心人在：
+        <select>
+          <option>早晨</option>
+          <option>中午</option>
+          <option>晚上</option>
+          <option>凌晨</option>
+        </select>
+      </p>
+      <button type="button">发布求助</button>
+      <button type="button" style="background-color:#a00;">加急发布</button>
+    </form>
+  </section>
+
+  <!-- 怪物 -->
+  <section id="monsters">
+    <h2>怪物图鉴</h2>
+    <div class="post">
+      <h3>丧尸</h3>
+      <p>形成原因：太阳黑子风暴造成的高强度辐射使人类细胞崩溃、异变。</p>
+      <p>弱点：黑暗、冷却、头部打击、辐射屏蔽。</p>
+      <p><i>“真正的尸变来自光，不是咬。”</i></p>
+    </div>
+    <button>新增怪物词条</button>
+  </section>
+
+  <!-- 行动 -->
+  <section id="action">
+    <h2>行动面板</h2>
+    <p>饥饿值：45/100</p>
+    <p>疲劳值：60/100</p>
+    <p>理智值（san）：72/100</p>
+    <h3>今日进食</h3>
+    <p>水源：1200ml（建议每日 1500ml 以上）</p>
+    <p>食物：1 罐头（剩余：压缩饼干 × 6）</p>
+    <h3>今日睡眠</h3>
+    <p>状态：半（3小时）</p>
+  </section>
+
+  <!-- 个人资料 -->
+  <section id="profile">
+    <h2>个人信息</h2>
+    <p>名字：陈末</p>
+    <p>性别：女</p>
+    <p>年龄：27</p>
+    <p>职业：心理医生</p>
+    <p>外貌：丹凤眼、冷白肤、唇痣</p>
+    <p>存活：18日</p>
+    <h3>背包</h3>
+    <ul>
+      <li>压缩饼干 × 10</li>
+      <li>矿泉水 × 5</li>
+      <li>家用急救箱 × 1</li>
+      <li>打火机 × 1</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 末世互助网 - 太阳黑子纪元 · 第三年三月一日</p>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  }
+</script>
+
+</body>
+</html>
