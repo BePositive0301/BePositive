@@ -1,209 +1,1696 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>末世互助网</title>
-<style>
-  body {
-    font-family: "Microsoft YaHei", sans-serif;
-    background-color: #0d0d0d;
-    color: #e0e0e0;
-    margin: 0;
-    padding: 0;
-  }
-  header {
-    background-color: #111;
-    padding: 15px 30px;
-    border-bottom: 2px solid #333;
-  }
-  header h1 {
-    font-size: 22px;
-    color: #c0392b;
-    letter-spacing: 2px;
-  }
-  nav {
-    background-color: #181818;
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid #333;
-  }
-  nav a {
-    color: #aaa;
-    padding: 10px;
-    text-decoration: none;
-  }
-  nav a:hover {
-    color: #fff;
-  }
-  main {
-    padding: 25px;
-    min-height: 500px;
-  }
-  section {
-    display: none;
-  }
-  section.active {
-    display: block;
-  }
-  .post {
-    border-bottom: 1px solid #333;
-    padding: 10px 0;
-  }
-  footer {
-    text-align: center;
-    padding: 15px;
-    font-size: 12px;
-    color: #666;
-    border-top: 1px solid #333;
-  }
-  button {
-    background-color: #c0392b;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #e74c3c;
-  }
-  .highlight-red { color: #b71c1c; }
-  .highlight-blue { color: #1976d2; }
-  .highlight-green { color: #2e7d32; }
-  .highlight-black { color: #111; font-weight: bold; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>末世互助网</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --accent-color: #8b0000;
+            --secondary-color: #2d2d2d;
+            --border-color: #444;
+            --success-color: #2e7d32;
+            --danger-color: #c62828;
+            --warning-color: #f57c00;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: var(--secondary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        .logo span {
+            color: var(--text-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 20px;
+        }
+        
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            background-color: var(--accent-color);
+        }
+        
+        .page {
+            display: none;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        h1, h2, h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+        
+        .card {
+            background-color: #2d2d2d;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 8px 12px;
+            background-color: #3d3d3d;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #a00000;
+        }
+        
+        button.secondary {
+            background-color: #555;
+        }
+        
+        button.secondary:hover {
+            background-color: #666;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            background-color: #2d2d2d;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #444;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+        }
+        
+        .hunger { background-color: var(--warning-color); }
+        .fatigue { background-color: var(--accent-color); }
+        .san { background-color: #6a1b9a; }
+        .sun { background-color: #ff9800; }
+        .period { background-color: #e91e63; }
+        
+        .inventory {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .item {
+            background-color: #3d3d3d;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .post {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+        }
+        
+        .post:last-child {
+            border-bottom: none;
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .post-content {
+            margin-bottom: 10px;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .event {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+        
+        .event-good {
+            background-color: rgba(46, 125, 50, 0.2);
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .event-bad {
+            background-color: rgba(198, 40, 40, 0.2);
+            border-left: 4px solid var(--danger-color);
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            background-color: rgba(198, 40, 40, 0.2);
+            border-left: 4px solid var(--danger-color);
+        }
+        
+        .success {
+            background-color: rgba(46, 125, 50, 0.2);
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .npc-card {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #2d2d2d;
+            border-radius: 6px;
+        }
+        
+        .npc-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .npc-info {
+            flex: 1;
+        }
+        
+        .npc-name {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        .npc-description {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .location-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .location-option {
+            padding: 15px;
+            background-color: #2d2d2d;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .location-option:hover {
+            background-color: #3d3d3d;
+        }
+        
+        .location-option.selected {
+            background-color: var(--accent-color);
+        }
+        
+        .time-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .time-option {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background-color: #2d2d2d;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .time-option.selected {
+            background-color: var(--accent-color);
+        }
+        
+        .monster-entry {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #2d2d2d;
+            border-radius: 6px;
+        }
+        
+        .monster-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .monster-section {
+            margin-bottom: 10px;
+        }
+        
+        .monster-section-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 5px;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<header>
-  <h1>末世互助网</h1>
-</header>
-
-<nav>
-  <a href="#" onclick="showPage('home')">主页</a>
-  <a href="#" onclick="showPage('forum')">论坛</a>
-  <a href="#" onclick="showPage('help')">互助</a>
-  <a href="#" onclick="showPage('monsters')">怪物</a>
-  <a href="#" onclick="showPage('action')">行动</a>
-  <a href="#" onclick="showPage('profile')">个人资料</a>
-</nav>
-
-<main>
-
-  <!-- 首页 -->
-  <section id="home" class="active">
-    <h2>欢迎来到【末世互助网】</h2>
-    <p>这是末世后人类搭建的最后一片网络庇护地。<br>你可以在这里发布求助、交易、记录生存。</p>
-    <p><i>——“我们还活着。”</i></p>
-  </section>
-
-  <!-- 论坛 -->
-  <section id="forum">
-    <h2>末世论坛</h2>
-    <div class="post">
-      <p><b>[幸存者A]</b>：有人知道A城东区的避难所还安全吗？</p>
-      <p class="highlight-blue">回复（2）</p>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">末世<span>互助网</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="home">主页</a></li>
+                        <li><a href="#" class="nav-link" data-page="forum">论坛</a></li>
+                        <li><a href="#" class="nav-link" data-page="help">互助</a></li>
+                        <li><a href="#" class="nav-link" data-page="monsters">怪物档案</a></li>
+                        <li><a href="#" class="nav-link" data-page="map">地图</a></li>
+                        <li><a href="#" class="nav-link" data-page="profile">个人</a></li>
+                        <li><a href="#" class="nav-link" data-page="actions">行动</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- 登录/注册页面 -->
+        <div id="auth-page" class="page active">
+            <h1>末世互助网</h1>
+            <p>欢迎来到末世互助网，这是末世中幸存者们的联络平台。</p>
+            
+            <div class="card">
+                <h2>登录 / 注册</h2>
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="email" id="email" placeholder="请输入邮箱">
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" placeholder="请输入密码">
+                </div>
+                <div class="form-group">
+                    <button id="login-btn">登录</button>
+                    <button id="register-btn" class="secondary">注册新账号</button>
+                </div>
+            </div>
+            
+            <div id="register-form" class="card hidden">
+                <h2>创建角色</h2>
+                <div class="form-group">
+                    <label for="nickname">昵称</label>
+                    <input type="text" id="nickname" placeholder="请输入昵称">
+                </div>
+                <div class="form-group">
+                    <label for="gender">性别</label>
+                    <select id="gender">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button id="create-character-btn">创建角色</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主页 -->
+        <div id="home-page" class="page">
+            <h1>末世互助网</h1>
+            <p>数据更新时间：末日三年三月一日。网络信号微弱，请节省能量。</p>
+            
+            <div class="card">
+                <h2>最新动态</h2>
+                <div id="recent-posts">
+                    <!-- 动态内容将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>重要公告</h2>
+                <p>1. 被丧尸咬伤不一定会导致尸变，真正的危险来自过度暴露于太阳辐射。</p>
+                <p>2. 夏季阳光辐射增强，请尽量减少户外活动时间。</p>
+                <p>3. 互助网目前仅覆盖A城、B镇和C市区域。</p>
+            </div>
+        </div>
+        
+        <!-- 论坛页面 -->
+        <div id="forum-page" class="page">
+            <h1>社区论坛</h1>
+            
+            <div class="card">
+                <h2>发表新帖</h2>
+                <div class="form-group">
+                    <label for="post-title">标题</label>
+                    <input type="text" id="post-title" placeholder="请输入标题">
+                </div>
+                <div class="form-group">
+                    <label for="post-content">内容</label>
+                    <textarea id="post-content" rows="5" placeholder="请输入内容"></textarea>
+                </div>
+                <div class="form-group">
+                    <button id="create-post-btn">发布</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>帖子列表</h2>
+                <div id="posts-list">
+                    <!-- 帖子列表将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 互助页面 -->
+        <div id="help-page" class="page">
+            <h1>互助交易</h1>
+            
+            <div class="card">
+                <h2>发布求助</h2>
+                <div class="form-group">
+                    <label for="need-item">我需要</label>
+                    <select id="need-item">
+                        <option value="救命" style="color: #8b0000; font-weight: bold;">救命</option>
+                        <!-- 物品选项将通过JavaScript动态生成 -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="have-item">我有</label>
+                    <select id="have-item">
+                        <option value="无" style="color: #2e7d32; font-weight: bold;">无</option>
+                        <!-- 物品选项将通过JavaScript动态生成 -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location">我在</label>
+                    <select id="location">
+                        <!-- 地点选项将通过JavaScript动态生成 -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="meet-time">请好心人在</label>
+                    <input type="text" id="meet-time" placeholder="例如：今天中午">
+                </div>
+                <div class="form-group">
+                    <button id="create-help-post-btn">发布</button>
+                    <button id="urgent-btn" style="background-color: #8b0000;">加急</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>求助列表</h2>
+                <div id="help-posts-list">
+                    <!-- 求助帖子列表将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 怪物档案页面 -->
+        <div id="monsters-page" class="page">
+            <h1>怪物档案</h1>
+            
+            <div class="card">
+                <h2>新增怪物</h2>
+                <div class="form-group">
+                    <label for="monster-name">怪物名称</label>
+                    <input type="text" id="monster-name" placeholder="请输入怪物名称">
+                </div>
+                <div class="form-group">
+                    <label for="monster-cause">形成原因</label>
+                    <textarea id="monster-cause" rows="3" placeholder="请输入形成原因"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="monster-lifespan">寿命</label>
+                    <textarea id="monster-lifespan" rows="2" placeholder="请输入寿命描述"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="monster-weakness">弱点</label>
+                    <textarea id="monster-weakness" rows="3" placeholder="请输入弱点描述"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="monster-notes">重点注意</label>
+                    <textarea id="monster-notes" rows="3" placeholder="请输入重点注意事项"></textarea>
+                </div>
+                <div class="form-group">
+                    <button id="add-monster-btn">添加怪物</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>怪物列表</h2>
+                <div id="monsters-list">
+                    <!-- 怪物列表将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 地图页面 -->
+        <div id="map-page" class="page">
+            <h1>区域地图</h1>
+            <p>数据更新时间：末日三年三月一日</p>
+            
+            <div class="card">
+                <div style="background-color: #0b0b0b; color: #dcdcdc; padding: 20px; border-radius: 6px; text-align: center; font-family: 'Courier New', monospace;">
+                    <p>[C市区域地图]</p>
+                    <div style="display: flex; justify-content: center; margin: 20px 0;">
+                        <div style="width: 300px; height: 200px; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center;">
+                            C市地图
+                        </div>
+                    </div>
+                    <p style="font-size: 12px;">A城（历史城区） | C市主城区（核心区） | 高新区/工业区 | B镇（郊区镇）</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>区域说明</h2>
+                <ul>
+                    <li><strong>A城（历史城区）</strong>：人口密度高，建筑密集，物资集中但老旧，易塌陷，利于隐蔽但难逃生。</li>
+                    <li><strong>C市主城区（核心区）</strong>：现代建筑、高科技设施、交通网络密集，风险高但回报大（信息、能源）。</li>
+                    <li><strong>高新区/工业区</strong>：存在大量危险化学品、精密仪器和潜在能源，丧尸和未知生物可能具有特殊变异。</li>
+                    <li><strong>B镇（郊区镇）</strong>：农业、制造业、仓储物流为主，易获取食物和燃料，但缺乏坚固庇护所和医疗资源。</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 个人页面 -->
+        <div id="profile-page" class="page">
+            <h1>个人信息</h1>
+            
+            <div class="card">
+                <h2>角色信息</h2>
+                <div id="character-info">
+                    <!-- 角色信息将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>背包</h2>
+                <div id="inventory">
+                    <!-- 背包内容将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>来时路</h2>
+                <div id="past-characters">
+                    <!-- 死亡角色记录将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 行动页面 -->
+        <div id="actions-page" class="page">
+            <h1>生存行动</h1>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div>饥饿值</div>
+                    <div class="stat-value" id="hunger-value">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill hunger" id="hunger-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div>疲劳值</div>
+                    <div class="stat-value" id="fatigue-value">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill fatigue" id="fatigue-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div>理智值</div>
+                    <div class="stat-value" id="san-value">100</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill san" id="san-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div>阳光暴露</div>
+                    <div class="stat-value" id="sun-value">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill sun" id="sun-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-item" id="period-item">
+                    <div>经期倒数</div>
+                    <div class="stat-value" id="period-value">0/28</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill period" id="period-bar"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>本日进食</h2>
+                <div class="form-group">
+                    <label for="water-intake">水源 (毫升)</label>
+                    <input type="number" id="water-intake" placeholder="建议1500毫升以上">
+                </div>
+                <div class="form-group">
+                    <label for="food-intake">食物 (罐头量)</label>
+                    <input type="number" id="food-intake" placeholder="1罐头=4压缩饼干">
+                </div>
+                <div class="form-group">
+                    <button id="consume-btn">消耗</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>本日睡眠</h2>
+                <div class="form-group">
+                    <label for="sleep-amount">睡眠量</label>
+                    <select id="sleep-amount">
+                        <option value="none">无</option>
+                        <option value="half">半 (3小时)</option>
+                        <option value="full">整 (6小时)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sleep-time">睡眠时段</label>
+                    <select id="sleep-time">
+                        <option value="morning">早晨</option>
+                        <option value="noon">中午</option>
+                        <option value="evening">傍晚</option>
+                        <option value="night">夜晚</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>移动</h2>
+                <div class="form-group">
+                    <label for="move-location">目标地点</label>
+                    <select id="move-location">
+                        <!-- 地点选项将通过JavaScript动态生成 -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transportation">交通工具</label>
+                    <select id="transportation">
+                        <option value="walk">徒步</option>
+                        <option value="bike">自行车</option>
+                        <option value="car">小汽车</option>
+                        <option value="suv">越野车</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button id="move-btn">移动</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>当前事件</h2>
+                <div id="current-event">
+                    <!-- 当前事件将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>推进时间</h2>
+                <div class="time-selector">
+                    <div class="time-option" data-time="morning">早晨</div>
+                    <div class="time-option" data-time="noon">中午</div>
+                    <div class="time-option" data-time="evening">傍晚</div>
+                    <div class="time-option" data-time="night">夜晚</div>
+                </div>
+                <div class="form-group">
+                    <button id="advance-time-btn">推进时间</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="post">
-      <p><b>[幸存者B]</b>：今天在B镇南仓库找到几个罐头，交换药品。</p>
-      <p class="highlight-green">回复（5）</p>
-    </div>
-  </section>
 
-  <!-- 互助 -->
-  <section id="help">
-    <h2>互助区</h2>
-    <form>
-      <p>我需要：
-        <select>
-          <option>压缩饼干</option>
-          <option>矿泉水</option>
-          <option>急救箱</option>
-          <option class="highlight-red">救命</option>
-        </select>
-      </p>
-      <p>我有：
-        <select>
-          <option>无</option>
-          <option>罐头</option>
-          <option>药品</option>
-          <option>燃料</option>
-        </select>
-      </p>
-      <p>我在：
-        <select>
-          <option>A城</option>
-          <option>B镇</option>
-          <option>C市主城区</option>
-        </select>
-      </p>
-      <p>请好心人在：
-        <select>
-          <option>早晨</option>
-          <option>中午</option>
-          <option>晚上</option>
-          <option>凌晨</option>
-        </select>
-      </p>
-      <button type="button">发布求助</button>
-      <button type="button" style="background-color:#a00;">加急发布</button>
-    </form>
-  </section>
+    <script>
+        // 游戏数据
+        const gameData = {
+            // 职业列表
+            professions: [
+                { name: "奶茶店店员", buff: "人际协调：团队关系+10%，减少内讧概率", debuff: "体能偏弱：体力恢复效率 -10%" },
+                { name: "心理医生", buff: "精神稳定：san值下降速度 -15%", debuff: "实用性低：医疗类道具使用效果 -10%" },
+                { name: "急诊科护士", buff: "急救护理：伤口恢复速度 +20%", debuff: "资源依赖：无药品时医疗效果 -40%" },
+                { name: "上班族", buff: "组织规划：物资整理效率 +15%", debuff: "身体僵化：移动速度 -10%" },
+                { name: "大学生", buff: "快速学习：学习新技能所需时间 -20%", debuff: "理想主义：初期san值 -10" },
+                { name: "游泳教练", buff: "体力好：疲劳值上限 +15", debuff: "专业局限：野外事件成功率 -10%" },
+                { name: "程序员", buff: "电路知识：电子类道具修复率 +30%", debuff: "户外经验不足：野外探索事件成功率 -20%" },
+                { name: "农民", buff: "农业技能：食物生产量 +20%", debuff: "目光局限：城市事件成功率 -15%" },
+                { name: "无业游民", buff: "适应力强：负面事件豁免率 +10%", debuff: "信用低下：团队信任初始 -20" },
+                { name: "网红", buff: "表演与说服：外交事件成功率 +20%", debuff: "关注度高：被盯上概率 +15%" },
+                { name: "教师", buff: "知识传承：团队经验获取 +10%", debuff: "体力平庸：疲劳消耗 +10%" },
+                { name: "开锁师傅", buff: "潜入专家：封闭事件成功率 +25%", debuff: "单打独斗：团队行动协作 -10%" }
+            ],
+            
+            // 地点列表
+            locations: [
+                "A城·旧街口", "A城·文化街", "A城·老邮局", "A城·豆腐坊",
+                "C市·行政中心", "C市·商业大道", "C市·地铁口", "C市·高新区边缘",
+                "工业区·仓储厂房", "郊区·菜地边", "B镇·火车站", "B镇·仓库群"
+            ],
+            
+            // 环境描述
+            environments: [
+                "废墟寂静，远处有阵阵金属摩擦声",
+                "空气中弥漫焦糊味，天空灰蒙",
+                "下着灰色细雨，视线受限",
+                "夜幕降临，远处偶有光点",
+                "晨雾未散，地面泥泞"
+            ],
+            
+            // 外貌特征词库
+            appearance: {
+                face: ["吊眼", "卧蚕", "丹凤眼", "桃花眼", "下垂眼", "单眼皮", "双眼皮", "浓眉", "淡眉", "断眉", "剑眉", "柳眉", "塌鼻", "鹰鼻", "翘鼻", "圆鼻", "尖下巴", "圆下巴", "宽额", "方额", "长脸", "鹅蛋脸", "眉目疏朗", "眉峰凌厉", "五官端正"],
+                skin: ["苍白肤", "黝黑肤", "古铜肤", "麦色肤", "冷白肤", "黄皮肤", "红肤色", "青白肤", "灰白肤", "浅棕肤", "深棕肤", "肤色通透", "肤色晦暗", "肤色不均", "肤若凝脂", "皮肤光洁", "肌理细腻", "面色红润", "面色惨白", "面色蜡黄", "面色清冷", "肤色健康", "肤色泛红", "肤质粗糙", "肤色病态"],
+                scar: ["刀疤", "烧痕", "胎记", "泪痣", "雀斑", "酒窝", "唇痣", "眉心印", "鬓角痣", "颧侧痣", "下巴痣", "鼻梁痣", "眼下痣", "额心疤", "唇角裂", "眉疤", "唇裂", "唇钉", "耳钉", "鼻环", "针眼痕", "唇角痕", "烫痕淡", "嘴角印", "唇角常裂", "额角伤痕"],
+                race: ["东亚相", "南岛相", "欧罗面", "混血感", "亚洲肤", "高鼻梁", "深眼窝", "平颧骨", "短面型", "立体面", "宽脸骨", "窄脸骨", "颊骨外突", "颧高面阔", "鼻梁笔直", "鼻翼宽阔", "额骨平缓", "眉弓突出", "颧骨低平", "下颌坚挺", "骨相柔和", "骨线分明", "面骨深刻", "骨感立体", "肤骨相衬"],
+                impression: ["眼神凌厉", "眼角含笑", "眉目紧凑", "眉目清朗", "五官精致", "五官深刻", "面容清秀", "面目狰狞", "面色温柔", "神情寡淡", "神态倦怠", "神色阴沉", "神色恍惚", "气质冰冷", "神情温柔", "面容端雅", "神态拘谨", "表情迟钝", "笑容明快", "表情冷淡"]
+            },
+            
+            // 物品列表
+            items: [
+                // 食品类
+                "压缩饼干", "午餐肉罐头", "什锦蔬菜罐头", "番茄罐头", "玉米罐头", 
+                "牛肉罐头", "鸡肉罐头", "海鲜罐头", "脱水蔬菜", "食用盐", "糖",
+                // 医疗与卫生类
+                "沐浴露", "洗发液", "洗衣粉", "毛巾", "家用急救箱", "复合维生素", 
+                "维生素C药片", "钙片", "胃药", "抗生素", "退烧止痛药", "咳嗽药", 
+                "止泻药", "开塞露", "驱蚊花露水", "绷带", "碘伏", "碘酒", "创可贴", 
+                "棉签", "电子体温计", "卫生巾", "肥皂", "牙膏", "牙刷", "塑料袋", 
+                "卫生纸", "暖宝宝", "外科手术刀全套",
+                // 工具与五金类
+                "木板", "钉子", "隔音板", "万能胶大管", "撬棍", "瓦斯罐", "防暴钢叉", 
+                "专业五金工具箱", "折叠刀", "发电机", "指南针", "登山绳", "登山扣", 
+                "护目镜", "夜视眼镜", "多功能救生斧", "手摇电筒", "基础维修工具", 
+                "雨伞", "雨衣",
+                // 燃料与水源类
+                "大桶装矿泉水", "小瓶装矿泉水", "汽油",
+                // 书籍类
+                "《国家地理》", "《无国界医生手册》", "《民兵训练手册》", "《五金手册》", 
+                "《法治的细节》", "《演员的自我修养》", "《活着》",
+                // 安全防护类
+                "灭火器", "枪", "子弹"
+            ],
+            
+            // NPC列表
+            npcs: [
+                {
+                    name: "岑遥",
+                    gender: "女",
+                    age: 26,
+                    profession: "急诊科护士",
+                    appearance: "杏眼、鹅蛋脸、盘发",
+                    description: "细心，温柔，调停者，经常在交易区回复做物资交易，但很少回应现场求助的帖子。"
+                },
+                {
+                    name: "孟白英",
+                    gender: "女",
+                    age: 32,
+                    profession: "登山向导",
+                    appearance: "凤眼、麦色肤、烧痕",
+                    description: "简短，可靠，吐槽。会回应求助类型的帖子，有一辆铃木GSX1300R隼，来去如风。"
+                },
+                {
+                    name: "林屿",
+                    gender: "男",
+                    age: 22,
+                    profession: "大学生",
+                    appearance: "苍白肤、高鼻梁、混血感",
+                    description: "害怕，观察，参与讨论。观察力特别强，会经常发帖，告知哪些地方出现未知生物或丧尸。"
+                },
+                {
+                    name: "司徒峰",
+                    gender: "男",
+                    age: 52,
+                    profession: "法官",
+                    appearance: "眼镜、高挑、五官端正",
+                    description: "文质，儒雅，关怀。养了两条狗的老人，不常参与交易和营救，但偶尔会发帖说自己把一些物资放在某处。"
+                }
+            ],
+            
+            // 事件列表
+            events: {
+                solo: [
+                    // 环境与辐射威胁
+                    { type: "bad", text: "A 城：炎热夏季，躲藏在历史建筑的木质阁楼中，因高温和老旧结构，阁楼突然起火或坍塌。" },
+                    { type: "good", text: "C 市主城区：独自摸索时，发现一栋政府大楼的地下指挥中心，其独立通风和辐射防护系统完好。" },
+                    { type: "bad", text: "高新区：突发降雨，雨水将高新区的化学废液冲入地下管道，被困者吸入有毒气体。" },
+                    { type: "bad", text: "B 镇：极寒冬季，藏身在B 镇的金属仓库中，金属外壳快速散热，面临体温过低的风险。" },
+                    { type: "good", text: "C 市主城区：在环城高架桥下，发现一处天然形成的巨大阴影区域，可在白天低风险停留。" },
+                    { type: "bad", text: "A 城：在老街区穿行时，被地震余震引发的砖瓦坠落击中，造成内伤。" },
+                    { type: "bad", text: "工业区：尝试穿越废弃工厂区时，意外触发了残存的工业蒸汽或高压气体泄漏。" },
+                    { type: "good", text: "B 镇：在 B 镇的农田附近，发现一个尚未被污染的深井，水源稳定且易于提取。" },
+                    { type: "bad", text: "C 市主城区：潜入地铁站台，发现地下深处的水位正在快速上涨。" },
+                    { type: "bad", text: "A 城：独自被困于一栋没有窗户的百年老宅中，夏季高温，空气无法流通，几近窒息。" }
+                    // 更多事件可以在实际开发中补充
+                ]
+            },
+            
+            // 怪物列表
+            monsters: [
+                {
+                    name: "丧尸",
+                    cause: "产生核心在于太阳黑子风暴引发的异常高强度太阳辐射。当活体生物（主要是人类）过度暴露于这种辐射下时，其细胞结构会经历快速崩溃和生物质的异变，最终转化为活性攻击性组织。值得注意的是，被烈日尸咬伤并非导致尸变的主要决定因素。咬伤更主要的危害是传播伤口感染和致命病菌，而非辐射病毒。真正的尸变，几乎总是由直接或间接的辐射过度暴露所引起。",
+                    lifespan: "不确定。与季节和光照强度直接挂钩。活跃期（夏季或强光）：它们活动力极强，但细胞代谢和消耗速度也极快。一些个体可能因能量耗尽而快速衰竭，或被高温和辐射加速脱水，最终被'晒成干尸'。休眠期（冬季或阴暗）：缺乏光照和低温会使其活动力大幅下降，并进入类似'冰封'的僵硬状态。理论上，处于这种深度休眠状态的烈日尸可以无限期地存活。",
+                    weakness: "1. 高强度黑暗与冷却：它们对光照具有依赖性，长时间的黑暗会使其进入迟缓和僵硬状态。突发的极速冷却（如利用冰冻介质）能使其进入假死，易于处理。\n2. 传统中枢破坏：对其脑部或中枢神经系统的传统破坏依然是有效的致命手段。\n3. 辐射屏蔽：特殊合金或厚重结构可以有效隔绝太阳辐射，从而阻止其进一步变异和增强。",
+                    notes: "1. 时间威胁：白天，尤其是夏季正午，是烈日尸攻击力和数量的峰值期。幸存者必须将户外活动降至最低，并将庇护所的防晒和隔热做到极致。\n2. 不一定尸变：由于尸变的核心是辐射而非传染，被咬伤者不会立即变异。同时，人群中可能存在少量对辐射具有免疫或抵抗力的人。\n3. 二次污染：丧尸的血液、体液和残骸可能含有高辐射残留或工业区带来的毒素，接触可能导致中毒或引发二次变异。"
+                }
+            ]
+        };
 
-  <!-- 怪物 -->
-  <section id="monsters">
-    <h2>怪物图鉴</h2>
-    <div class="post">
-      <h3>丧尸</h3>
-      <p>形成原因：太阳黑子风暴造成的高强度辐射使人类细胞崩溃、异变。</p>
-      <p>弱点：黑暗、冷却、头部打击、辐射屏蔽。</p>
-      <p><i>“真正的尸变来自光，不是咬。”</i></p>
-    </div>
-    <button>新增怪物词条</button>
-  </section>
+        // 游戏状态
+        let gameState = {
+            currentUser: null,
+            currentCharacter: null,
+            currentPage: "home",
+            currentTime: "morning",
+            currentSeason: "spring",
+            currentWeather: "晴",
+            daysAlive: 0
+        };
 
-  <!-- 行动 -->
-  <section id="action">
-    <h2>行动面板</h2>
-    <p>饥饿值：45/100</p>
-    <p>疲劳值：60/100</p>
-    <p>理智值（san）：72/100</p>
-    <h3>今日进食</h3>
-    <p>水源：1200ml（建议每日 1500ml 以上）</p>
-    <p>食物：1 罐头（剩余：压缩饼干 × 6）</p>
-    <h3>今日睡眠</h3>
-    <p>状态：半（3小时）</p>
-  </section>
+        // 初始化游戏
+        function initGame() {
+            // 加载保存的数据
+            loadGameData();
+            
+            // 设置事件监听器
+            setupEventListeners();
+            
+            // 初始化UI
+            initUI();
+            
+            // 显示当前页面
+            showPage(gameState.currentPage);
+        }
 
-  <!-- 个人资料 -->
-  <section id="profile">
-    <h2>个人信息</h2>
-    <p>名字：陈末</p>
-    <p>性别：女</p>
-    <p>年龄：27</p>
-    <p>职业：心理医生</p>
-    <p>外貌：丹凤眼、冷白肤、唇痣</p>
-    <p>存活：18日</p>
-    <h3>背包</h3>
-    <ul>
-      <li>压缩饼干 × 10</li>
-      <li>矿泉水 × 5</li>
-      <li>家用急救箱 × 1</li>
-      <li>打火机 × 1</li>
-    </ul>
-  </section>
+        // 加载游戏数据
+        function loadGameData() {
+            const savedGame = localStorage.getItem('apocalypseNetwork');
+            if (savedGame) {
+                const parsed = JSON.parse(savedGame);
+                gameState = { ...gameState, ...parsed.gameState };
+                gameData.monsters = parsed.monsters || gameData.monsters;
+            }
+        }
 
-</main>
+        // 保存游戏数据
+        function saveGameData() {
+            const gameDataToSave = {
+                gameState,
+                monsters: gameData.monsters
+            };
+            localStorage.setItem('apocalypseNetwork', JSON.stringify(gameDataToSave));
+        }
 
-<footer>
-  <p>© 末世互助网 - 太阳黑子纪元 · 第三年三月一日</p>
-</footer>
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 导航链接
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    showPage(page);
+                });
+            });
+            
+            // 登录按钮
+            document.getElementById('login-btn').addEventListener('click', login);
+            
+            // 注册按钮
+            document.getElementById('register-btn').addEventListener('click', showRegisterForm);
+            
+            // 创建角色按钮
+            document.getElementById('create-character-btn').addEventListener('click', createCharacter);
+            
+            // 发布帖子按钮
+            document.getElementById('create-post-btn').addEventListener('click', createPost);
+            
+            // 发布求助按钮
+            document.getElementById('create-help-post-btn').addEventListener('click', createHelpPost);
+            
+            // 加急按钮
+            document.getElementById('urgent-btn').addEventListener('click', createUrgentPost);
+            
+            // 添加怪物按钮
+            document.getElementById('add-monster-btn').addEventListener('click', addMonster);
+            
+            // 消耗按钮
+            document.getElementById('consume-btn').addEventListener('click', consumeResources);
+            
+            // 移动按钮
+            document.getElementById('move-btn').addEventListener('click', moveCharacter);
+            
+            // 推进时间按钮
+            document.getElementById('advance-time-btn').addEventListener('click', advanceTime);
+            
+            // 时间选择器
+            document.querySelectorAll('.time-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    gameState.currentTime = this.getAttribute('data-time');
+                    updateUI();
+                });
+            });
+        }
 
-<script>
-  function showPage(id) {
-    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-  }
-</script>
+        // 初始化UI
+        function initUI() {
+            // 填充物品选择框
+            const needItemSelect = document.getElementById('need-item');
+            const haveItemSelect = document.getElementById('have-item');
+            
+            gameData.items.forEach(item => {
+                const option1 = document.createElement('option');
+                option1.value = item;
+                option1.textContent = item;
+                needItemSelect.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = item;
+                option2.textContent = item;
+                haveItemSelect.appendChild(option2);
+            });
+            
+            // 填充地点选择框
+            const locationSelect = document.getElementById('location');
+            const moveLocationSelect = document.getElementById('move-location');
+            
+            gameData.locations.forEach(location => {
+                const option1 = document.createElement('option');
+                option1.value = location;
+                option1.textContent = location;
+                locationSelect.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = location;
+                option2.textContent = location;
+                moveLocationSelect.appendChild(option2);
+            });
+            
+            // 更新UI
+            updateUI();
+        }
 
+        // 显示页面
+        function showPage(page) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            
+            // 更新导航链接
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // 显示目标页面
+            document.getElementById(`${page}-page`).classList.add('active');
+            document.querySelector(`[data-page="${page}"]`).classList.add('active');
+            
+            // 更新游戏状态
+            gameState.currentPage = page;
+            
+            // 更新页面特定内容
+            updatePageContent(page);
+        }
+
+        // 更新页面内容
+        function updatePageContent(page) {
+            switch(page) {
+                case 'home':
+                    updateHomePage();
+                    break;
+                case 'forum':
+                    updateForumPage();
+                    break;
+                case 'help':
+                    updateHelpPage();
+                    break;
+                case 'monsters':
+                    updateMonstersPage();
+                    break;
+                case 'profile':
+                    updateProfilePage();
+                    break;
+                case 'actions':
+                    updateActionsPage();
+                    break;
+            }
+        }
+
+        // 更新主页
+        function updateHomePage() {
+            const recentPosts = document.getElementById('recent-posts');
+            recentPosts.innerHTML = '<p>暂无最新动态</p>';
+            
+            // 在实际应用中，这里会从服务器获取最新帖子
+        }
+
+        // 更新论坛页面
+        function updateForumPage() {
+            const postsList = document.getElementById('posts-list');
+            postsList.innerHTML = '<p>暂无帖子</p>';
+            
+            // 在实际应用中，这里会从服务器获取帖子列表
+        }
+
+        // 更新互助页面
+        function updateHelpPage() {
+            const helpPostsList = document.getElementById('help-posts-list');
+            helpPostsList.innerHTML = '<p>暂无求助帖子</p>';
+            
+            // 在实际应用中，这里会从服务器获取求助帖子列表
+        }
+
+        // 更新怪物档案页面
+        function updateMonstersPage() {
+            const monstersList = document.getElementById('monsters-list');
+            monstersList.innerHTML = '';
+            
+            gameData.monsters.forEach(monster => {
+                const monsterEntry = document.createElement('div');
+                monsterEntry.className = 'monster-entry';
+                
+                monsterEntry.innerHTML = `
+                    <div class="monster-name">${monster.name}</div>
+                    <div class="monster-section">
+                        <div class="monster-section-title">形成原因</div>
+                        <div>${monster.cause}</div>
+                    </div>
+                    <div class="monster-section">
+                        <div class="monster-section-title">寿命</div>
+                        <div>${monster.lifespan}</div>
+                    </div>
+                    <div class="monster-section">
+                        <div class="monster-section-title">弱点</div>
+                        <div>${monster.weakness}</div>
+                    </div>
+                    <div class="monster-section">
+                        <div class="monster-section-title">重点注意</div>
+                        <div>${monster.notes}</div>
+                    </div>
+                `;
+                
+                monstersList.appendChild(monsterEntry);
+            });
+        }
+
+        // 更新个人页面
+        function updateProfilePage() {
+            const characterInfo = document.getElementById('character-info');
+            const inventory = document.getElementById('inventory');
+            const pastCharacters = document.getElementById('past-characters');
+            
+            if (gameState.currentCharacter) {
+                characterInfo.innerHTML = `
+                    <p><strong>姓名：</strong>${gameState.currentCharacter.name}</p>
+                    <p><strong>性别：</strong>${gameState.currentCharacter.gender}</p>
+                    <p><strong>年龄：</strong>${gameState.currentCharacter.age}</p>
+                    <p><strong>职业：</strong>${gameState.currentCharacter.profession}</p>
+                    <p><strong>外貌：</strong>${gameState.currentCharacter.appearance.join('、')}</p>
+                    <p><strong>当前位置：</strong>${gameState.currentCharacter.location}</p>
+                    <p><strong>环境：</strong>${gameState.currentCharacter.environment}</p>
+                    <p><strong>存活天数：</strong>${gameState.daysAlive}</p>
+                `;
+                
+                // 显示背包
+                inventory.innerHTML = '';
+                if (gameState.currentCharacter.inventory && Object.keys(gameState.currentCharacter.inventory).length > 0) {
+                    for (const [item, count] of Object.entries(gameState.currentCharacter.inventory)) {
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'item';
+                        itemElement.textContent = `${item} × ${count}`;
+                        inventory.appendChild(itemElement);
+                    }
+                } else {
+                    inventory.innerHTML = '<p>背包为空</p>';
+                }
+                
+                // 显示死亡角色记录
+                pastCharacters.innerHTML = '<p>暂无记录</p>';
+            } else {
+                characterInfo.innerHTML = '<p>未创建角色</p>';
+                inventory.innerHTML = '<p>未创建角色</p>';
+                pastCharacters.innerHTML = '<p>未创建角色</p>';
+            }
+        }
+
+        // 更新行动页面
+        function updateActionsPage() {
+            if (gameState.currentCharacter) {
+                // 更新状态值
+                document.getElementById('hunger-value').textContent = gameState.currentCharacter.stats.hunger;
+                document.getElementById('fatigue-value').textContent = gameState.currentCharacter.stats.fatigue;
+                document.getElementById('san-value').textContent = gameState.currentCharacter.stats.san;
+                document.getElementById('sun-value').textContent = gameState.currentCharacter.stats.sun;
+                
+                // 更新进度条
+                document.getElementById('hunger-bar').style.width = `${gameState.currentCharacter.stats.hunger}%`;
+                document.getElementById('fatigue-bar').style.width = `${gameState.currentCharacter.stats.fatigue}%`;
+                document.getElementById('san-bar').style.width = `${gameState.currentCharacter.stats.san}%`;
+                document.getElementById('sun-bar').style.width = `${gameState.currentCharacter.stats.sun}%`;
+                
+                // 如果是女性角色，显示经期信息
+                if (gameState.currentCharacter.gender === '女') {
+                    document.getElementById('period-item').classList.remove('hidden');
+                    document.getElementById('period-value').textContent = `${gameState.currentCharacter.periodCount}/28`;
+                    document.getElementById('period-bar').style.width = `${(gameState.currentCharacter.periodCount / 28) * 100}%`;
+                } else {
+                    document.getElementById('period-item').classList.add('hidden');
+                }
+                
+                // 更新当前事件
+                const currentEvent = document.getElementById('current-event');
+                if (gameState.currentEvent) {
+                    currentEvent.innerHTML = `
+                        <div class="event ${gameState.currentEvent.type === 'good' ? 'event-good' : 'event-bad'}">
+                            <p>${gameState.currentEvent.text}</p>
+                            <div class="event-actions">
+                                <button>发帖求助</button>
+                                <button>使用物品</button>
+                                <button>听天由命</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    currentEvent.innerHTML = '<p>暂无事件</p>';
+                }
+            }
+        }
+
+        // 更新UI
+        function updateUI() {
+            // 更新所有页面的内容
+            updatePageContent(gameState.currentPage);
+            
+            // 保存游戏数据
+            saveGameData();
+        }
+
+        // 登录
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('请输入邮箱和密码');
+                return;
+            }
+            
+            // 在实际应用中，这里会验证用户凭据
+            // 这里简化处理，直接登录
+            gameState.currentUser = email;
+            
+            // 检查是否有角色
+            if (gameState.currentCharacter) {
+                showPage('home');
+            } else {
+                showRegisterForm();
+            }
+        }
+
+        // 显示注册表单
+        function showRegisterForm() {
+            document.getElementById('register-form').classList.remove('hidden');
+        }
+
+        // 创建角色
+        function createCharacter() {
+            const nickname = document.getElementById('nickname').value;
+            const gender = document.getElementById('gender').value;
+            
+            if (!nickname) {
+                alert('请输入昵称');
+                return;
+            }
+            
+            // 随机生成年龄（21-35）
+            const age = Math.floor(Math.random() * 15) + 21;
+            
+            // 随机选择职业
+            const profession = gameData.professions[Math.floor(Math.random() * gameData.professions.length)];
+            
+            // 随机选择地点
+            const location = gameData.locations[Math.floor(Math.random() * gameData.locations.length)];
+            
+            // 随机选择环境描述
+            const environment = gameData.environments[Math.floor(Math.random() * gameData.environments.length)];
+            
+            // 生成外貌选项（从五大类中各选两个）
+            const appearanceOptions = [];
+            Object.values(gameData.appearance).forEach(category => {
+                const selected = [];
+                while (selected.length < 2) {
+                    const randomIndex = Math.floor(Math.random() * category.length);
+                    if (!selected.includes(category[randomIndex])) {
+                        selected.push(category[randomIndex]);
+                    }
+                }
+                appearanceOptions.push(...selected);
+            });
+            
+            // 在实际应用中，这里会让玩家选择外貌特征
+            // 这里简化处理，随机选择3个
+            const appearance = [];
+            while (appearance.length < 3) {
+                const randomIndex = Math.floor(Math.random() * appearanceOptions.length);
+                if (!appearance.includes(appearanceOptions[randomIndex])) {
+                    appearance.push(appearanceOptions[randomIndex]);
+                }
+            }
+            
+            // 生成初始背包
+            const inventory = {};
+            
+            // 确保有5瓶矿泉水和10包压缩饼干
+            inventory['小瓶装矿泉水'] = 5;
+            inventory['压缩饼干'] = 10;
+            
+            // 随机添加其他物品（总物品数在25-35之间）
+            const totalItems = Math.floor(Math.random() * 11) + 25;
+            let currentCount = 15; // 5瓶水 + 10包饼干
+            
+            while (currentCount < totalItems) {
+                const randomItem = gameData.items[Math.floor(Math.random() * gameData.items.length)];
+                if (randomItem !== '小瓶装矿泉水' && randomItem !== '压缩饼干') {
+                    inventory[randomItem] = (inventory[randomItem] || 0) + 1;
+                    currentCount++;
+                }
+            }
+            
+            // 创建角色对象
+            gameState.currentCharacter = {
+                name: nickname,
+                gender,
+                age,
+                profession: profession.name,
+                appearance,
+                location,
+                environment,
+                inventory,
+                stats: {
+                    hunger: 0,
+                    fatigue: 0,
+                    san: 100,
+                    sun: 0
+                },
+                periodCount: 0,
+                buffs: [],
+                debuffs: []
+            };
+            
+            // 重置游戏状态
+            gameState.daysAlive = 0;
+            gameState.currentTime = 'morning';
+            
+            // 显示主页
+            showPage('home');
+        }
+
+        // 创建帖子
+        function createPost() {
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').value;
+            
+            if (!title || !content) {
+                alert('请输入标题和内容');
+                return;
+            }
+            
+            // 在实际应用中，这里会将帖子发送到服务器
+            alert('帖子已发布');
+            
+            // 清空表单
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-content').value = '';
+        }
+
+        // 创建求助帖子
+        function createHelpPost() {
+            const needItem = document.getElementById('need-item').value;
+            const haveItem = document.getElementById('have-item').value;
+            const location = document.getElementById('location').value;
+            const meetTime = document.getElementById('meet-time').value;
+            
+            if (!meetTime) {
+                alert('请输入见面时间');
+                return;
+            }
+            
+            // 在实际应用中，这里会将求助帖子发送到服务器
+            alert('求助帖子已发布');
+            
+            // 清空表单
+            document.getElementById('meet-time').value = '';
+        }
+
+        // 创建加急帖子
+        function createUrgentPost() {
+            const needItem = document.getElementById('need-item').value;
+            const haveItem = document.getElementById('have-item').value;
+            const location = document.getElementById('location').value;
+            const meetTime = document.getElementById('meet-time').value;
+            
+            if (!meetTime) {
+                alert('请输入见面时间');
+                return;
+            }
+            
+            // 在实际应用中，这里会将加急求助帖子发送到服务器
+            alert('加急求助帖子已发布');
+            
+            // 清空表单
+            document.getElementById('meet-time').value = '';
+        }
+
+        // 添加怪物
+        function addMonster() {
+            const name = document.getElementById('monster-name').value;
+            const cause = document.getElementById('monster-cause').value;
+            const lifespan = document.getElementById('monster-lifespan').value;
+            const weakness = document.getElementById('monster-weakness').value;
+            const notes = document.getElementById('monster-notes').value;
+            
+            if (!name || !cause || !lifespan || !weakness || !notes) {
+                alert('请填写所有字段');
+                return;
+            }
+            
+            // 添加新怪物
+            gameData.monsters.push({
+                name,
+                cause,
+                lifespan,
+                weakness,
+                notes
+            });
+            
+            // 更新怪物列表
+            updateMonstersPage();
+            
+            // 清空表单
+            document.getElementById('monster-name').value = '';
+            document.getElementById('monster-cause').value = '';
+            document.getElementById('monster-lifespan').value = '';
+            document.getElementById('monster-weakness').value = '';
+            document.getElementById('monster-notes').value = '';
+            
+            alert('怪物已添加');
+        }
+
+        // 消耗资源
+        function consumeResources() {
+            const waterIntake = parseInt(document.getElementById('water-intake').value) || 0;
+            const foodIntake = parseInt(document.getElementById('food-intake').value) || 0;
+            
+            if (!gameState.currentCharacter) {
+                alert('未创建角色');
+                return;
+            }
+            
+            // 检查是否有足够的水
+            if (waterIntake > 0) {
+                const waterBottles = Math.ceil(waterIntake / 500); // 每瓶500毫升
+                if ((gameState.currentCharacter.inventory['小瓶装矿泉水'] || 0) < waterBottles) {
+                    alert('没有足够的矿泉水');
+                    return;
+                }
+                gameState.currentCharacter.inventory['小瓶装矿泉水'] -= waterBottles;
+                if (gameState.currentCharacter.inventory['小瓶装矿泉水'] <= 0) {
+                    delete gameState.currentCharacter.inventory['小瓶装矿泉水'];
+                }
+            }
+            
+            // 检查是否有足够的食物
+            if (foodIntake > 0) {
+                // 1罐头 = 4压缩饼干
+                const neededCans = foodIntake;
+                let availableFood = 0;
+                
+                // 计算可用食物（罐头和压缩饼干）
+                for (const [item, count] of Object.entries(gameState.currentCharacter.inventory)) {
+                    if (item.includes('罐头')) {
+                        availableFood += count;
+                    } else if (item === '压缩饼干') {
+                        availableFood += count / 4;
+                    }
+                }
+                
+                if (availableFood < neededCans) {
+                    alert('没有足够的食物');
+                    return;
+                }
+                
+                // 消耗食物（优先消耗罐头）
+                let remainingNeeded = neededCans;
+                for (const [item, count] of Object.entries(gameState.currentCharacter.inventory)) {
+                    if (item.includes('罐头') && remainingNeeded > 0) {
+                        const toConsume = Math.min(count, remainingNeeded);
+                        gameState.currentCharacter.inventory[item] -= toConsume;
+                        remainingNeeded -= toConsume;
+                        
+                        if (gameState.currentCharacter.inventory[item] <= 0) {
+                            delete gameState.currentCharacter.inventory[item];
+                        }
+                    }
+                }
+                
+                // 如果还需要食物，消耗压缩饼干
+                if (remainingNeeded > 0 && gameState.currentCharacter.inventory['压缩饼干']) {
+                    const neededBiscuits = Math.ceil(remainingNeeded * 4);
+                    const toConsume = Math.min(gameState.currentCharacter.inventory['压缩饼干'], neededBiscuits);
+                    gameState.currentCharacter.inventory['压缩饼干'] -= toConsume;
+                    
+                    if (gameState.currentCharacter.inventory['压缩饼干'] <= 0) {
+                        delete gameState.currentCharacter.inventory['压缩饼干'];
+                    }
+                }
+            }
+            
+            // 更新饥饿值（如果消耗了足够的资源）
+            const dailyWaterNeed = 1500;
+            const dailyFoodNeed = 2; // 2罐头
+            
+            if (waterIntake >= dailyWaterNeed && foodIntake >= dailyFoodNeed) {
+                gameState.currentCharacter.stats.hunger = Math.max(0, gameState.currentCharacter.stats.hunger - 10);
+            } else {
+                gameState.currentCharacter.stats.hunger += 10;
+            }
+            
+            // 清空表单
+            document.getElementById('water-intake').value = '';
+            document.getElementById('food-intake').value = '';
+            
+            // 更新UI
+            updateUI();
+            
+            alert('资源已消耗');
+        }
+
+        // 移动角色
+        function moveCharacter() {
+            const targetLocation = document.getElementById('move-location').value;
+            const transportation = document.getElementById('transportation').value;
+            
+            if (!gameState.currentCharacter) {
+                alert('未创建角色');
+                return;
+            }
+            
+            // 在实际应用中，这里会检查移动是否可行
+            // 这里简化处理，直接移动
+            gameState.currentCharacter.location = targetLocation;
+            
+            // 更新环境描述
+            gameState.currentCharacter.environment = gameData.environments[Math.floor(Math.random() * gameData.environments.length)];
+            
+            // 增加疲劳值
+            gameState.currentCharacter.stats.fatigue += 10;
+            
+            // 增加阳光暴露值（如果在户外移动）
+            if (transportation !== 'car' && transportation !== 'suv') {
+                gameState.currentCharacter.stats.sun += 5;
+            }
+            
+            // 更新UI
+            updateUI();
+            
+            alert(`已移动到 ${targetLocation}`);
+        }
+
+        // 推进时间
+        function advanceTime() {
+            if (!gameState.currentCharacter) {
+                alert('未创建角色');
+                return;
+            }
+            
+            // 更新状态值
+            gameState.currentCharacter.stats.hunger += 5;
+            gameState.currentCharacter.stats.fatigue += 5;
+            gameState.currentCharacter.stats.san -= 2;
+            
+            // 如果是女性角色，更新经期计数
+            if (gameState.currentCharacter.gender === '女') {
+                gameState.currentCharacter.periodCount = (gameState.currentCharacter.periodCount + 1) % 29;
+            }
+            
+            // 检查睡眠
+            const sleepAmount = document.getElementById('sleep-amount').value;
+            const sleepTime = document.getElementById('sleep-time').value;
+            
+            if (sleepAmount !== 'none' && sleepTime === gameState.currentTime) {
+                if (sleepAmount === 'half') {
+                    gameState.currentCharacter.stats.fatigue = Math.max(0, gameState.currentCharacter.stats.fatigue - 10);
+                } else if (sleepAmount === 'full') {
+                    gameState.currentCharacter.stats.fatigue = Math.max(0, gameState.currentCharacter.stats.fatigue - 20);
+                }
+                
+                // 增加san值
+                gameState.currentCharacter.stats.san = Math.min(100, gameState.currentCharacter.stats.san + 2);
+            }
+            
+            // 生成随机事件
+            if (Math.random() < 0.3) { // 30%概率发生事件
+                const eventPool = gameData.events.solo;
+                const randomEvent = eventPool[Math.floor(Math.random() * eventPool.length)];
+                gameState.currentEvent = randomEvent;
+            } else {
+                gameState.currentEvent = null;
+            }
+            
+            // 移动到下一个时间段
+            const timeOptions = ['morning', 'noon', 'evening', 'night'];
+            const currentIndex = timeOptions.indexOf(gameState.currentTime);
+            const nextIndex = (currentIndex + 1) % timeOptions.length;
+            gameState.currentTime = timeOptions[nextIndex];
+            
+            // 如果是新的一天开始
+            if (gameState.currentTime === 'morning') {
+                gameState.daysAlive++;
+                
+                // 随机更换天气
+                const weatherOptions = ['晴', '阴', '雨', '风', '雪'];
+                gameState.currentWeather = weatherOptions[Math.floor(Math.random() * weatherOptions.length)];
+                
+                // 每30天更换季节
+                if (gameState.daysAlive % 30 === 0) {
+                    const seasonOptions = ['spring', 'summer', 'autumn', 'winter'];
+                    const currentSeasonIndex = seasonOptions.indexOf(gameState.currentSeason);
+                    const nextSeasonIndex = (currentSeasonIndex + 1) % seasonOptions.length;
+                    gameState.currentSeason = seasonOptions[nextSeasonIndex];
+                }
+            }
+            
+            // 检查死亡条件
+            checkDeathConditions();
+            
+            // 更新UI
+            updateUI();
+            
+            alert('时间已推进');
+        }
+
+        // 检查死亡条件
+        function checkDeathConditions() {
+            if (!gameState.currentCharacter) return;
+            
+            const stats = gameState.currentCharacter.stats;
+            
+            // 饥饿死亡
+            if (stats.hunger >= 100) {
+                characterDeath('饿死');
+                return;
+            }
+            
+            // 疲劳死亡
+            if (stats.fatigue >= 100) {
+                characterDeath('猝死');
+                return;
+            }
+            
+            // 理智值归零自杀
+            if (stats.san <= 0) {
+                characterDeath('自杀');
+                return;
+            }
+            
+            // 阳光暴露过度变成丧尸
+            if (stats.sun >= 100) {
+                characterDeath('阳光灿烂');
+                return;
+            }
+        }
+
+        // 角色死亡
+        function characterDeath(cause) {
+            alert(`角色已死亡：${cause}`);
+            
+            // 记录死亡角色
+            if (!gameState.pastCharacters) {
+                gameState.pastCharacters = [];
+            }
+            
+            gameState.pastCharacters.push({
+                name: gameState.currentCharacter.name,
+                daysAlive: gameState.daysAlive,
+                cause: cause,
+                location: gameState.currentCharacter.location
+            });
+            
+            // 重置当前角色（保留背包和位置）
+            const inventory = gameState.currentCharacter.inventory;
+            const location = gameState.currentCharacter.location;
+            
+            gameState.currentCharacter = null;
+            gameState.daysAlive = 0;
+            
+            // 显示注册页面
+            showPage('auth');
+            document.getElementById('register-form').classList.remove('hidden');
+            
+            // 在实际应用中，这里会创建新角色并继承背包和位置
+        }
+
+        // 初始化游戏
+        window.addEventListener('load', initGame);
+    </script>
 </body>
 </html>
